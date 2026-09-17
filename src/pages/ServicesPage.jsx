@@ -15,12 +15,9 @@ export const ServicesPage = () => {
       />
 
       {/* Header Banner */}
-      <section className="bg-gradient-to-r from-slate-900 via-brand-950 to-slate-900 text-white py-14">
+      <section className="bg-slate-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-brand-400 font-bold text-xs uppercase tracking-widest px-3 py-1 bg-brand-900/60 rounded-full border border-brand-800">
-            Comprehensive Solutions
-          </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mt-3 mb-4">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-3">
             Our Water Purifier Services
           </h1>
           <p className="text-slate-300 text-base max-w-2xl mx-auto">

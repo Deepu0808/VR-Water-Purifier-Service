@@ -1,96 +1,194 @@
-import React from 'react';
-import { Camera, Image as ImageIcon, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { Camera, Eye, X, Filter } from 'lucide-react';
 
 export const BusinessPhotoGallery = () => {
-  const photoSlots = [
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [activePhoto, setActivePhoto] = useState(null);
+
+  // Helper to construct image URL (handles both external URLs and local public/images/ files with GitHub Pages base path)
+  const getImageUrl = (path) => {
+    if (!path) return '';
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return path;
+    }
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
+    const base = import.meta.env.BASE_URL.endsWith('/')
+      ? import.meta.env.BASE_URL
+      : `${import.meta.env.BASE_URL}/`;
+    return encodeURI(`${base}${cleanPath}`);
+  };
+
+  const galleryItems = [
     {
-      id: 'store-location',
-      title: 'Store / Service Location',
-      subtitle: '36, Devarachikkannahalli Road, Vijaya Bank Layout',
-      tag: 'Location Photo'
+      id: 1,
+      title: 'V R Water Purifier Storefront & Service Shop',
+      category: 'Location',
+      location: '36, Devarachikkannahalli Road, Vijaya Bank Layout, Bengaluru',
+      desc: 'Our official service station and spare parts counter located at Devarachikkannahalli Road, Bommanahalli.',
+      img: 'images/V R.png',
+      alt: 'V R Water Purifier Service Center Storefront'
     },
     {
-      id: 'ro-unit',
-      title: 'RO Water Purifier Systems',
-      subtitle: 'Domestic RO, UV and UF Units',
-      tag: 'Equipment'
+      id: 2,
+      title: 'RO System Servicing & Deep Cleaning',
+      category: 'Servicing',
+      location: 'Devarachikkannahalli Road, Vijaya Bank Layout, Bengaluru',
+      desc: 'Complete internal cleaning, pipe checkup, and water flow optimization.',
+      img: 'images/work pic 1.jpeg',
+      alt: 'RO Purifier Servicing Work'
     },
     {
-      id: 'service-work',
-      title: 'Service & Maintenance Work',
-      subtitle: 'Descaling, Cleaning & Pressure Check',
-      tag: 'Service Work'
+      id: 3,
+      title: 'Water Filter & Membrane Cartridge Replacement',
+      category: 'Filters',
+      location: 'Vijaya Bank Layout, Bommanahalli, Bengaluru',
+      desc: 'Replacing clogged sediment filters, pre-carbon cartridges, and high-rejection RO membrane.',
+      img: 'images/work pic 2.jpeg',
+      alt: 'Filter and Membrane Replacement Work'
     },
     {
-      id: 'filter-replacement',
-      title: 'Filter & Membrane Change',
-      subtitle: 'Sediment, Carbon & RO Membranes',
-      tag: 'Parts'
+      id: 4,
+      title: 'Booster Pump & Electrical Repair Work',
+      category: 'Servicing',
+      location: 'Devarachikkannahalli Road, Bommanahalli, Bengaluru',
+      desc: 'Troubleshooting power supply adapters, solenoid valves, and high-pressure booster pumps.',
+      img: 'images/work pic 3.jpeg',
+      alt: 'Booster Pump Repair Work'
     },
     {
-      id: 'installation-work',
-      title: 'Water Purifier Installation',
-      subtitle: 'Wall Mounting & Plumbing Connections',
-      tag: 'Installation'
+      id: 5,
+      title: 'New Wall-Mount RO Purifier Installation',
+      category: 'Installation',
+      location: 'Vijaya Bank Layout, Bommanahalli, Bengaluru',
+      desc: 'Neat wall mounting, inlet pipe connection, reject line alignment, and leak testing.',
+      img: 'images/work pic 4.jpeg',
+      alt: 'Purifier Installation Work'
     },
     {
-      id: 'technician-work',
-      title: 'Technician at Work',
-      subtitle: 'Doorstep Troubleshooting in Bengaluru',
-      tag: 'On-Site'
+      id: 6,
+      title: 'TDS Water Quality Test & Final Inspection',
+      category: 'Inspection',
+      location: 'Devarachikkannahalli Road, Vijaya Bank Layout, Bengaluru',
+      desc: 'Checking input and output water TDS levels and verifying UV lamp sterilization performance.',
+      img: 'images/work pic 5.jpeg',
+      alt: 'TDS Inspection Work'
     }
   ];
 
+  const categories = ['All', 'Servicing', 'Installation', 'Filters', 'Inspection', 'Location'];
+
+  const filteredItems = selectedCategory === 'All'
+    ? galleryItems
+    : galleryItems.filter(item => item.category === selectedCategory);
+
   return (
-    <div className="bg-slate-50 border border-slate-200/80 rounded-3xl p-6 sm:p-10">
-      <div className="text-center max-w-2xl mx-auto mb-10">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-100 text-brand-700 text-xs font-bold uppercase mb-3">
-          <Camera className="w-3.5 h-3.5" />
-          <span>Real Business Gallery Placeholders</span>
+    <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-sm">
+      {/* Gallery Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-slate-100 gap-4">
+        <div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Our Service Shop & Recent Field Work
+          </h2>
+          <p className="text-slate-600 text-sm mt-1">
+            Real photos from our service shop and technician work across Bengaluru.
+          </p>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
-          Our Service & Work Gallery
-        </h2>
-        <p className="text-slate-600 text-sm">
-          We believe in transparency. Genuine photos of our Vijaya Bank Layout location, technician tools, filter replacements, and installation work can be added here.
-        </p>
+
+        {/* Category Filters */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-150 ${
+                selectedCategory === cat
+                  ? 'bg-brand-600 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </div>
 
+      {/* Photos Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {photoSlots.map((slot) => (
+        {filteredItems.map((item) => (
           <div
-            key={slot.id}
-            className="group relative bg-white border-2 border-dashed border-slate-200 hover:border-brand-400 rounded-2xl p-6 flex flex-col items-center justify-center text-center min-h-[220px] transition-all duration-200 hover:shadow-lg"
+            key={item.id}
+            onClick={() => setActivePhoto(item)}
+            className="group cursor-pointer bg-slate-50 rounded-2xl overflow-hidden border border-slate-200/80 hover:shadow-xl transition-all duration-200"
           >
-            <div className="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 group-hover:bg-brand-50 group-hover:text-brand-600 flex items-center justify-center mb-4 transition-colors">
-              <ImageIcon className="w-7 h-7" />
+            <div className="relative h-56 overflow-hidden bg-slate-100 flex items-center justify-center">
+              <img
+                src={getImageUrl(item.img)}
+                alt={item.alt}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="bg-white/90 text-slate-900 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg">
+                  <Eye className="w-4 h-4 text-brand-600" /> View Photo
+                </span>
+              </div>
+              <span className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white px-2.5 py-1 rounded-lg text-[11px] font-semibold">
+                {item.category}
+              </span>
             </div>
 
-            <span className="inline-block px-2.5 py-0.5 rounded bg-slate-100 text-slate-600 text-[10px] font-mono font-bold mb-2 uppercase">
-              {slot.tag}
-            </span>
-
-            <h3 className="font-bold text-slate-800 text-base mb-1">
-              {slot.title}
-            </h3>
-
-            <p className="text-xs text-slate-500 max-w-[200px]">
-              {slot.subtitle}
-            </p>
-
-            <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-400 font-medium">
-              [ Replace with photo: <span className="font-mono text-slate-600">{slot.id}.jpg</span> ]
+            <div className="p-4">
+              <h3 className="font-bold text-slate-900 text-base group-hover:text-brand-600 transition-colors">
+                {item.title}
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 line-clamp-2">
+                {item.desc}
+              </p>
+              <p className="text-[11px] font-semibold text-brand-600 mt-2">
+                📍 {item.location}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-8 p-4 bg-brand-50/80 rounded-2xl border border-brand-100 text-xs text-slate-600 flex items-start gap-3">
-        <Info className="w-5 h-5 text-brand-600 flex-shrink-0 mt-0.5" />
-        <p>
-          <strong className="text-slate-800">Note for Business Owner:</strong> To display actual shop and service photos, save your photo files into the <code className="bg-white px-1.5 py-0.5 rounded border border-brand-200 font-mono text-brand-700">public/images/</code> folder and update the image src attributes in code.
-        </p>
-      </div>
+      {/* Lightbox Modal */}
+      {activePhoto && (
+        <div className="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="relative bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150">
+            <button
+              onClick={() => setActivePhoto(null)}
+              className="absolute top-4 right-4 z-10 w-9 h-9 bg-slate-900/70 hover:bg-slate-900 text-white rounded-full flex items-center justify-center transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="max-h-[65vh] bg-slate-950 flex items-center justify-center overflow-hidden p-2">
+              <img
+                src={getImageUrl(activePhoto.img)}
+                alt={activePhoto.alt}
+                className="max-h-[60vh] w-auto max-w-full object-contain mx-auto rounded-lg shadow-md"
+              />
+            </div>
+
+            <div className="p-6">
+              <span className="inline-block bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-xs font-bold mb-2">
+                {activePhoto.category}
+              </span>
+              <h3 className="text-xl font-extrabold text-slate-900">
+                {activePhoto.title}
+              </h3>
+              <p className="text-sm text-slate-600 mt-2">
+                {activePhoto.desc}
+              </p>
+              <p className="text-xs font-semibold text-slate-400 mt-4 border-t border-slate-100 pt-3">
+                📍 Location: {activePhoto.location}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+

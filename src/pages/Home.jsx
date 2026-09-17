@@ -118,14 +118,11 @@ export const Home = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-brand-600 font-bold text-xs uppercase tracking-widest px-3 py-1 bg-brand-50 rounded-full">
-              Comprehensive Purifier Care
-            </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3 mb-4">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
               Water Purifier Repair & Servicing Solutions
             </h2>
             <p className="text-slate-600 text-base">
-              From sudden breakdowns to filter routine maintenance, we support all major RO, UV, and UF system requirements across Bengaluru.
+              From sudden breakdowns to routine filter maintenance, we support all major RO, UV, and UF system requirements across Bengaluru.
             </p>
           </div>
 
@@ -135,13 +132,13 @@ export const Home = () => {
             ))}
           </div>
 
-          <div className="mt-12 text-center">
+          <div className="mt-10 text-center">
             <Link
               to="/services"
-              className="inline-flex items-center gap-2 font-bold text-brand-600 hover:text-brand-700 text-base group"
+              className="inline-flex items-center gap-2 font-bold text-brand-600 hover:text-brand-700 text-sm group"
             >
-              <span>View Full Services Listing & Details</span>
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span>View All Services & Details</span>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         </div>
@@ -150,15 +147,12 @@ export const Home = () => {
       {/* Why Choose Us */}
       <section className="py-16 bg-slate-900 text-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-14">
-            <span className="text-brand-400 font-bold text-xs uppercase tracking-widest px-3 py-1 bg-brand-950/80 border border-brand-800 rounded-full">
-              Customer First Approach
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
               Why Choose V R Water Purifier Service?
             </h2>
             <p className="text-slate-300 text-sm sm:text-base">
-              We focus on prompt response, reliable filter replacement, and doorstep service convenience for local residents and businesses.
+              Prompt response, reliable filter replacements, and doorstep service convenience for local residents and businesses.
             </p>
           </div>
 
@@ -187,10 +181,7 @@ export const Home = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-brand-600 font-bold text-xs uppercase tracking-widest px-3 py-1 bg-brand-50 rounded-full">
-              Simple 3-Step Process
-            </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3 mb-4">
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mb-3">
               How Our Service Works
             </h2>
             <p className="text-slate-600 text-sm sm:text-base">
@@ -205,10 +196,10 @@ export const Home = () => {
                 className="bg-slate-50 p-8 rounded-3xl border border-slate-100 text-center relative flex flex-col items-center justify-between"
               >
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-brand-500 text-white font-black text-xl flex items-center justify-center mx-auto mb-6 shadow-md shadow-brand-500/20">
+                  <div className="w-12 h-12 rounded-2xl bg-brand-600 text-white font-black text-lg flex items-center justify-center mx-auto mb-5 shadow-md">
                     {step.step}
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
                     {step.title}
                   </h3>
                   <p className="text-slate-600 text-sm leading-relaxed">
@@ -217,25 +208,6 @@ export const Home = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={businessInfo.telUrl}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-white font-bold text-sm bg-brand-600 hover:bg-brand-700 shadow-md"
-            >
-              <Phone className="w-4 h-4" />
-              <span>Call Now ({businessInfo.phone})</span>
-            </a>
-            <a
-              href={businessInfo.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-emerald-800 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 font-bold text-sm"
-            >
-              <MessageSquare className="w-4 h-4 text-emerald-600" />
-              <span>Chat on WhatsApp</span>
-            </a>
           </div>
         </div>
       </section>
